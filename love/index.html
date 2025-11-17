@@ -1,160 +1,392 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uyên Nhi</title>
-    <link rel="shortcut icon" href="./icon.png" type="image/x-icon">
-    <link rel="stylesheet" href="main.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-</head>
-<body>
-    <button id="startMusic" style="
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 12px 20px;
-    font-size: 18px;
-    border-radius: 10px;
-    background: #ff3d7f;
-    color: white;
-    border: none;
-    cursor: pointer;
-    z-index: 9999;">
-    ▶️ Tap to Play Music
-</button>
-    <div id="drag-container">
-        <div id="spin-container">
-            <img src="./images/A.png" alt="">
-            <img src="./images/B.png" alt="">
-            <img src="./images/C.png" alt="">
-            <img src="./images/D.png" alt="">
-            <img src="./images/E.png" alt="">
-            <img src="./images/F.png" alt="">
-            <img src="./images/G.png" alt="">
-            <img src="./images/H.jpg" alt="">
-            <img src="./images/I.png" alt="">
-            <img src="./images/J.png" alt="">
-            <p>Happy Birthday My Dear Ruma</p>
-        </div>
-        <div id="ground"></div>
-    </div>
+<!DOCTYPE html>  <html lang="vi">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>J.M CREATE  </title>  <!-- Google Fonts Import -->  
+<link href="https://fonts.googleapis.com/css2?family=Amita:wght@400;700&family=Archivo:ital,wght@0,100..900;1,100..900&family=Bilbo+Swash+Caps&family=Inter:opsz,wght@14..32,500&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Tiro+Devanagari+Marathi:ital@0;1&display=swap" rel="stylesheet">  
+<style>  
+    @keyframes spin {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes spinRevert {
+  from {
+    transform: rotateY(360deg);
+  }
+  to {
+    transform: rotateY(0deg);
+  }
+}
+    @import url('https://fonts.googleapis.com/css2?family=Amita:wght@400;700&family=Archivo:ital,wght@0,100..900;1,100..900&family=Bilbo+Swash+Caps&family=Inter:opsz,wght@14..32,500&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Tiro+Devanagari+Marathi:ital@0;1&display=swap');  
+    html, body {  
+        margin: 0;  
+        padding: 0;  
+        height: 100%;  
+        touch-action: none;  
+    }  
+    body {  
+        overflow: hidden;  
+        display: flex;  
+        font-family: "Pacifico", sans-serif;  
+        background: #21071e;  
+        perspective: 1000px;  
+        transform-style: preserve-3d;  
+    }  
+    #drag-container, #spin-container {  
+        position: relative;  
+        display: flex;  
+        margin: auto;  
+        transform-style: preserve-3d;  
+        transform: rotateX(-10deg);  
+        z-index: 100;  
+    }  
+    #drag-container img, #drag-container video {  
+        transform-style: preserve-3d;  
+        position: absolute;  
+        left: 0;  
+        object-fit: cover;  
+        width: 86px;  
+        height: 124px;  
+        background-position: center;  
+        background-position-y: 93px;  
+        background-size: cover;  
+        top: 0;  
+        line-height: 200px;  
+        font-size: 50px;  
+        text-align: center;  
+        box-shadow: 0 0 8px #fff;  
+        border: 4px solid #fff;  
+        border-top-left-radius: 30px;  
+        border-top-right-radius: 30px;  
+        box-shadow: rgba(188, 188, 188, 0) 1px 4px 7px, rgba(204, 204, 204, 0.064) 1px 3px 6px;  
+        animation: delayShadow 1s forwards;  
+        animation-delay: 2s;  
+    }  
+    @keyframes delayShadow {  
+        to {  
+            box-shadow: rgb(0 0 0 / 0%) 1px 4px 7px, rgb(0 0 0 / 27%) 1px 3px 6px;  
+        }  
+    }  
+    #drag-container img:hover, #drag-container video:hover {  
+        box-shadow: 0 0 15px #fffd;  
+        box-shadow: rgba(0, 0, 0, 0.17) 1px 4px 7px, rgba(0, 0, 0, 0.24) 1px 3px 6px;  
+    }  
+    #drag-container p {  
+        line-height: 116px;  
+        position: absolute;  
+        top: 100%;  
+        left: 50%;  
+        transform: translate(-50%,-50%) rotateX(90deg);  
+        color: rgb(255 254 254);  
+        animation: fadein ease 15s;  
+    }  
+    @keyframes fadein {  
+        from { opacity: 0; }  
+        to { opacity: 1; }  
+    }  
+   .button {
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+  animation: showUp 1s forwards;
+  animation-delay: 5s;
+  transition: all .3s ease-in-out;
+}
+
+}
+}
+.button:hover {
+transform: scale(2.1);
+}
+@keyframes showUp {
+to { opacity: 1; }
+}
+#ground {
+width: 900px;
+height: 900px;
+position: absolute;
+top: 100%;
+left: 50%;
+transform: translate(-50%,-50%) rotateX(90deg);
+background: radial-gradient(circle farthest-side, #9993, transparent);
+}
+
+}  
+    #canvas {  
+        background-color:transparent;  
+        color: transparent;  
+        margin: 0;  
+        overflow: hidden;  
+        background-repeat: no-repeat;  
+        width: 100vw;  
+    }  
+    #canva {  
+        position: absolute;  
+        top: 0px;  
+        right: 0px;  
+        overflow: hidden;  
+    }  
+    p {  
+        font-weight: 600;  
+        font-size: 4vw;  
+        text-align: center;  
+    }  
+    @media screen and (max-width: 658px){  
+        p {  
+            font-weight: 600;  
+            font-size: 12vw;  
+            text-align: center;  
+        }  
+    }  
+</style>
+
+</head>  
+<body>  
+    <div id="drag-container">  
+        <div id="spin-container">  
+            <img src="A.png" alt="">  
+            <img src="B.png" alt="">  
+            <img src="C.png" alt="">  
+            <img src="D.png" alt="">  
+            <img src="E.png" alt="">  
+            <img src="F.png" alt="">  
+            <img src="G.png" alt="">  
+            <img src="H.jpg" alt="">  
+            <img src="I.png" alt="">  
+            <img src="J.png" alt="">  
+            <p>HAPPY<span> BIRTHDAY</span> MY DEAR RUMA</p>  
+            <button class="button" onclick="confetti();">  </button>  
+        </div>  
+        <div id="ground"></div>  
+    </div>  
+    <div id="music-container">  
+    <audio id="bg-music" src="M.m4a" autoplay loop></audio>  
+</div>  
+    <div id="canva">  
+        <canvas id="canvas"></canvas>  
+    </div>  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1/dist/confetti.browser.min.js"></script>  
+<script>  
+    // Rotating 3D carousel logic  
+    var radius = 240;  
+    var autoRotate = true;  
+    var rotateSpeed = -60;  
+    var imgWidth = 120;  
+    var imgHeight = 170;  
+    var bgMusicURL = 'https://api.soundcloud.com/tracks/...';
+
+var bgMusicControls = true;
+
+setTimeout(init, 1000);  
+    var odrag = document.getElementById('drag-container');  
+    var ospin = document.getElementById('spin-container');  
+    var aImg = ospin.getElementsByTagName('img');  
+    var aVid = ospin.getElementsByTagName('video');  
+    var aEle = [...aImg, ...aVid];  
+    ospin.style.width = imgWidth + "px";  
+    ospin.style.height = imgHeight + "px";  
+    var ground = document.getElementById('ground');  
+    ground.style.width = radius * 3 + "px";  
+    ground.style.height = radius * 3 + "px";  
+
+    function init(delayTime) {  
+        for (var i = 0; i < aEle.length; i++) {  
+            aEle[i].style.transform = "rotateY(" + (i * (360 / aEle.length)) + "deg) translateZ(" + radius + "px)";  
+            aEle[i].style.transition = "transform 1s";  
+            aEle[i].style.transitionDelay = delayTime || (aEle.length - i) / 4 + "s";  
+        }  
+    }  
+
+    function applyTranform(obj) {  
+        if(tY > 180) tY = 180;  
+        if(tY < 0) tY = 0;  
+        obj.style.transform = "rotateX(" + (-tY) + "deg) rotateY(" + (tX) + "deg)";  
+    }  
+
+    function playSpin(yes) {  
+        ospin.style.animationPlayState = (yes?'running':'paused');  
+    }  
+
+    var sX, sY, nX, nY, desX = 0,  
+    desY = 0,  
+    tX = 0,  
+    tY = 10;  
+
+    if (autoRotate) {  
+        var animationName = (rotateSpeed > 0 ? 'spin' : 'spinRevert');  
+        ospin.style.animation = animationName + " " + Math.abs(rotateSpeed) + "s infinite linear";  
+    }  
+
     
-    <div id="music-container"></div>
-    <!-- <div id="canva">
-        <canvas id="canvas"></canvas>
-    </div> -->
 
-    <!-- Audio tự động phát -->
-    <audio id="myAudio" autoplay playsinline>
-        <source src="music/setlove.mp3" type="audio/mpeg">
-        <source src="music/setlove.ogg" type="audio/ogg">
-    </audio>
+    document.onpointerdown = function (e) {  
+        clearInterval(odrag.timer);  
+        e = e || window.event;  
+        var sX = e.clientX,  
+        sY = e.clientY;  
+        this.onpointermove = function (e) {  
+            e = e || window.event;  
+            var nX = e.clientX,  
+            nY = e.clientY;  
+            desX = nX - sX;  
+            desY = nY - sY;  
+            tX += desX * 0.1;  
+            tY += desY * 0.1;  
+            applyTranform(odrag);  
+            sX = nX;  
+            sY = nY;  
+        };  
+        this.onpointerup = function (e) {  
+            odrag.timer = setInterval(function () {  
+                desX *= 0.95;  
+                desY *= 0.95;  
+                tX += desX * 0.1;  
+                tY += desY * 0.1;  
+                applyTranform(odrag);  
+                playSpin(false);  
+                if (Math.abs(desX) < 0.5 && Math.abs(desY) < 0.5) {  
+                    clearInterval(odrag.timer);  
+                    playSpin(true);  
+                }  
+            }, 17);  
+            this.onpointermove = this.onpointerup = null;  
+        };  
+        return false;  
+    };  
 
-    <script src="main.js"></script>
+    document.onmousewheel = function(e) {  
+        e = e || window.event;  
+        var d = e.wheelDelta / 20 || -e.detail;  
+        radius += d;  
+        init(1);  
+    };  
 
-    <script>
-        window.onload = function() {
-            var audio = document.getElementById("myAudio");
-            audio.muted = false;
-            audio.play().catch(function(e) {
-                console.log('Audio playback failed:', e);
-            });
+    // Confetti function  
+    function confetti() {  
+        window.confetti({  
+            particleCount: 200,  
+            spread: 90,  
+            origin: { y: 0.6 }  
+        });  
+    }  
 
-            // Hiệu ứng pháo hoa và trái tim
-            const canvas = document.getElementById("canvas");
-            const ctx = canvas.getContext("2d");
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+    // Fireworks + heart animation  
+    window.onload = function () {  
+        var canvas = document.getElementById("canvas");  
+        const ctx = canvas.getContext("2d");  
+        canvas.width = window.innerWidth;  
+        canvas.height = window.innerHeight;  
 
-            function random(min, max) {
-                return Math.random() * (max - min) + min;
-            }
+        function random(min, max) {  
+            return Math.random() * (max - min) + min;  
+        }  
 
-            function Firework(x, y) {
-                this.x = x;
-                this.y = y;
-                this.radius = random(2, 4);
-                this.color = `hsl(${random(0, 360)}, 100%, 50%)`;
-                this.vx = random(-3, 3);
-                this.vy = random(-3, 3);
-                this.life = 100;
-            }
+        function Firework(x, y) {  
+            this.x = x; this.y = y;  
+            this.radius = random(2, 4);  
+            this.color = `hsl(${random(0, 360)}, 100%, 50%)`;  
+            this.vx = random(-3, 3); this.vy = random(-3, 3); this.life = 100;  
+        }  
+        Firework.prototype.draw = function () {  
+            ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);  
+            ctx.fillStyle = this.color; ctx.fill();  
+        };  
+        Firework.prototype.update = function () {  
+            this.x += this.vx; this.y += this.vy; this.life--;  
+        };  
 
-            Firework.prototype.draw = function () {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-            };
+        function Heart(x, y) {  
+            this.x = x; this.y = y;  
+            this.size = random(20, 40);  
+            this.color = 'red'; this.vy = random(-2, -1); this.opacity = 1;  
+        }  
+        Heart.prototype.draw = function () {  
+            ctx.beginPath();  
+            ctx.moveTo(this.x, this.y);  
+            ctx.bezierCurveTo(this.x - this.size / 2, this.y - this.size / 2, this.x - this.size, this.y + this.size / 3, this.x, this.y + this.size);  
+            ctx.bezierCurveTo(this.x + this.size, this.y + this.size / 3, this.x + this.size / 2, this.y - this.size / 2, this.x, this.y);  
+            ctx.fillStyle = this.color;  
+            ctx.globalAlpha = this.opacity;  
+            ctx.fill();  
+            ctx.globalAlpha = 1;  
+        };  
+        Heart.prototype.update = function () {  
+            this.y += this.vy;  
+            this.opacity -= 0.01;  
+        };  
 
-            Firework.prototype.update = function () {
-                this.x += this.vx;
-                this.y += this.vy;
-                this.life--;
-            };
+        let fireworks = [];  
+        let hearts = [];  
 
-            function Heart(x, y) {
-                this.x = x;
-                this.y = y;
-                this.size = random(20, 40);
-                this.color = 'red';
-                this.vy = random(-2, -1);
-                this.opacity = 1;
-            }
-
-            Heart.prototype.draw = function () {
-                ctx.beginPath();
-                ctx.moveTo(this.x, this.y);
-                ctx.bezierCurveTo(this.x - this.size / 2, this.y - this.size / 2, this.x - this.size, this.y + this.size / 3, this.x, this.y + this.size);
-                ctx.bezierCurveTo(this.x + this.size, this.y + this.size / 3, this.x + this.size / 2, this.y - this.size / 2, this.x, this.y);
-                ctx.fillStyle = this.color;
-                ctx.globalAlpha = this.opacity;
-                ctx.fill();
-                ctx.globalAlpha = 1;
-            };
-
-            Heart.prototype.update = function () {
-                this.y += this.vy;
-                this.opacity -= 0.01;
-            };
-
-            let fireworks = [];
-            let hearts = [];
-
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                if (Math.random() < 0.1) {
-                    fireworks.push(new Firework(random(0, canvas.width), random(0, canvas.height)));
-                }
-                if (Math.random() < 0.05) {
-                    hearts.push(new Heart(random(0, canvas.width), canvas.height));
-                }
-
-                fireworks.forEach((firework, index) => {
-                    firework.draw();
-                    firework.update();
-                    if (firework.life <= 0) {
-                        fireworks.splice(index, 1);
-                    }
-                });
-
-                hearts.forEach((heart, index) => {
-                    heart.draw();
-                    heart.update();
-                    if (heart.opacity <= 0) {
-                        hearts.splice(index, 1);
-                    }
-                });
-
-                requestAnimationFrame(animate);
-            }
-            animate();
-        };
+        function animate() {  
+            ctx.clearRect(0, 0, canvas.width, canvas.height);  
+            if (Math.random() < 0.1) {  
+                fireworks.push(new Firework(random(0, canvas.width), random(0, canvas.height)));  
+            }  
+            if (Math.random() < 0.05) {  
+                hearts.push(new Heart(random(0, canvas.width), canvas.height));  
+            }  
+            fireworks.forEach((firework, index) => {  
+                firework.draw();  
+                firework.update();  
+                if (firework.life <= 0) {  
+                    fireworks.splice(index, 1);  
+                }  
+            });  
+            hearts.forEach((heart, index) => {  
+                heart.draw();  
+                heart.update();  
+                if (heart.opacity <= 0) {  
+                    hearts.splice(index, 1);  
+                }  
+            });  
+            requestAnimationFrame(animate);  
+        }  
+        animate();  
+    };  
+</script>
     </script>
+
+    <!-- এখানে Audio Fix Script বসাও -->
+    <script>
+    window.addEventListener("load", function() {
+        const music = document.getElementById("bg-music");
+        music.play().catch(() => {});
+        const unlockAudio = () => {
+            music.play().then(() => {
+                document.removeEventListener('click', unlockAudio);
+                document.removeEventListener('touchstart', unlockAudio);
+            }).catch(() => {});
+        };
+        document.addEventListener('click', unlockAudio);
+        document.addEventListener('touchstart', unlockAudio);
+    });
+    var radius = 240;
+var autoRotate = true;
+var rotateSpeed = -60;
+var imgWidth = 120;
+var imgHeight = 170;
+
+var odrag = document.getElementById("drag-container");
+var ospin = document.getElementById("spin-container");
+
+if (autoRotate) {
+    var animationName = (rotateSpeed > 0 ? "spin" : "spinRevert");
+    ospin.style.animation = `${animationName} ${Math.abs(rotateSpeed)}s infinite linear`;
+}
+    </script>
+
 </body>
 </html>
+
+</body>  
+</html>  
